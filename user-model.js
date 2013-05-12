@@ -1,8 +1,10 @@
-function userData(dbfile) {
+"use strict";
+
+function User(dbfile) {
     var sqlite = require('sqlite3');
     var db = new sqlite.Database(dbfile || "development.sqlite3");
 
-    this.index = function(req, callback) {
+    module.exports.index = function(req, callback) {
 	db.serialize(function() {
 	    var stmt = db.prepare("SELECT * FROM users");
 	    stmt.all(function(err, rows) {
@@ -12,7 +14,7 @@ function userData(dbfile) {
 	});
     }
 
-    this.show = function(req, callback) {
+    module.exports.show = function(req, callback) {
 	db.serialize(function() {
 	    var stmt = db.prepare("SELECT * FROM users WHERE id = ?");
 	    stmt.get(req.params.id, function(err, row) {
@@ -22,7 +24,7 @@ function userData(dbfile) {
 	});
     }
 
-    this.update = function(req, callback) {
+    module.exports.update = function(req, callback) {
 	db.serialize(function() {
 	    var newData = req.body;
 	    var date = new Date();
@@ -34,7 +36,7 @@ function userData(dbfile) {
 	});
     }
 
-    this.create = function(req, callback) {
+    module.exports.create = function(req, callback) {
 	db.serialize(function() {
 	    var newData = req.body;
 	    var date = new Date();
@@ -48,7 +50,7 @@ function userData(dbfile) {
 	    stmt.finalize();
 	});
     }
-    return this;
+    return module.exports;
 }
 
-module.exports = userData;
+module.exports = User;
