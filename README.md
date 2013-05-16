@@ -5,7 +5,7 @@ Requirements
 ------------
 1. Node.js
 2. PostgreSQL
-3. Database named "notey"
+3. Database named "notey" (or change in note-model.js and user-model.js)
 4. Demo-App Post-IT Frontend (angularjs)
 5. Set CORS-headers in resource.js to proper Origin for Frontend
 
