@@ -76,6 +76,17 @@ function NCResource(mountIn, dataObject, passport) {
 	}
     });
 
+    express.delete(mountIn+'/:id', function(req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+	    if(!req.user) {
+		res.statusCode = 401;
+		res.end();
+	    } else {
+		dataObject.destroy(req, function(data) { res.json(data); })
+	    }
+	})(req, res, next);
+    });
+
     return this;
 }
 

@@ -6,7 +6,14 @@ function Note(dbfile) {
     db.connect();
 
     module.exports.index = function(req, callback) {
-	db.query("SELECT * FROM notes WHERE user_id = $1 ORDER BY created_at DESC", [req.params.userId], function(err, result) {
+	var subset = " AND archived_at IS NULL AND deleted_at IS NULL";
+	if(req.query.archived) {
+	    subset = " AND archived_at IS NOT NULL";
+	} else if(req.query.deleted) {
+	    subset = " AND deleted_at IS NOT NULL";
+	}
+	db.query("SELECT * FROM notes WHERE user_id = $1"+subset+" ORDER BY created_at DESC",
+		 [req.params.userId], function(err, result) {
 	    callback(result.rows);
 	});
     }
@@ -35,6 +42,18 @@ function Note(dbfile) {
 			 newData.id = result.rows[0].id;
 			 callback(newData);
 		     }
+		 });
+    }
+
+    module.exports.destroy = function(req, callback) {
+	var columnToUpdate = 'deleted_at';
+	if(req.query.archive == "true") {
+	    columnToUpdate = 'archived_at';
+	}
+	var date = new Date();
+	db.query("UPDATE notes SET "+columnToUpdate+" = $1 WHERE user_id = $2 AND id = $3",
+		 [date, req.params.userId, req.params.id], function(err, result) {
+		     if(!err) { callback({id: req.params.id}); }
 		 });
     }
     return module.exports;
