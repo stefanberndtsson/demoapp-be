@@ -11,27 +11,26 @@ Requirements
 
 Database schema
 ---------------
-<code>
-CREATE TABLE users (
-  id SERIAL,
-  name TEXT,
-  username TEXT,
-  password TEXT,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP
-);
+  CREATE TABLE users (
+    id SERIAL,
+    name TEXT,
+    username TEXT,
+    password TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+  );
 
-CREATE TABLE notes (
-  id SERIAL,
-  user_id INTEGER,
-  title TEXT,
-  body TEXT,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP,
-  deleted_at TIMESTAMP,
-  archived_at TIMESTAMP
-);
-</code>
+  CREATE TABLE notes (
+    id SERIAL,
+    user_id INTEGER,
+    title TEXT,
+    body TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    deleted_at TIMESTAMP,
+    archived_at TIMESTAMP
+  );
+
 
 TODO
 ----
