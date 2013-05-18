@@ -11,6 +11,7 @@ Requirements
 
 Database schema
 ---------------
+```sql
   CREATE TABLE users (
     id SERIAL,
     name TEXT,
@@ -30,7 +31,7 @@ Database schema
     deleted_at TIMESTAMP,
     archived_at TIMESTAMP
   );
-
+```
 
 TODO
 ----
