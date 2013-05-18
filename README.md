@@ -32,7 +32,3 @@ Database schema
     archived_at TIMESTAMP
   );
 ```
-
-TODO
-----
-Deleting and archiving.
